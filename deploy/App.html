@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Completed Stories and Defects Per Iteration</title>
+
+    <script type="text/javascript" src="/apps/2.0rc1/sdk.js"></script>
+
+    <script type="text/javascript">
+        Rally.onReady(function () {
+                Ext.define("Rally.apps.completedstoriesanddefectsperiteration.CompletedStoriesAndDefectsPerIterationApp",{extend:"Rally.app.TimeboxScopedApp",componentCls:"completedstoriesanddefectsperiteration",scopeType:"iteration",comboboxConfig:{fieldLabel:"Select Iteration:",labelWidth:100,width:300},addContent:function(){this.add({xtype:"container",itemId:"mainHeader",componentCls:"mainHeader",items:[{xtype:"label",itemId:"completed-label",text:"Completed Items",componentCls:"completed-header"}]},{xtype:"container",itemId:"storyComponents",componentCls:"components",items:[{xtype:"label",itemId:"story-title",text:"No Stories in Iteration",componentCls:"gridTitle"}]},{xtype:"container",itemId:"defectComponents",componentCls:"components",items:[{xtype:"label",itemId:"defect-title",text:"No Defects in Iteration",componentCls:"gridTitle"}]}),this._loadStores()},onScopeChange:function(){this._loadStores()},_loadStores:function(){Ext.create("Rally.data.WsapiDataStore",{model:"UserStory",autoLoad:!0,fetch:["_ref","FormattedID","Name","ScheduleState","Owner","UserName","DisplayName"],filters:[this.getContext().getTimeboxScope().getQueryFilter(),{property:"ScheduleState",operator:"=",value:"Completed"}],sorters:[{property:"FormattedID",direction:"ASC"}],listeners:{load:this._onStoriesStoreLoaded,scope:this}}),Ext.create("Rally.data.WsapiDataStore",{model:"Defect",autoLoad:!0,fetch:["_ref","FormattedID","Name","Owner","UserName","DisplayName","ScheduleState"],filters:[this.getContext().getTimeboxScope().getQueryFilter(),{property:"ScheduleState",operator:"=",value:"Completed"}],sorters:[{property:"FormattedID",direction:"ASC"}],listeners:{load:this._onDefectsStoreLoaded,scope:this}})},_onStoriesStoreLoaded:function(store,data){var hide=!1;0===data.length&&(hide=!0),this._createCustomGrid(store,hide,"#storyComponents")},_onDefectsStoreLoaded:function(store,data){var hide=!1;0===data.length&&(hide=!0),this._createCustomGrid(store,hide,"#defectComponents")},_createCustomGrid:function(store,hide,container){var me=this;return grid=this.down(container).add({xtype:"rallygrid",store:store,hidden:hide,sortableColumns:!1,columnCfgs:[{text:"Artifact",flex:4,renderer:function(value,metaData,record){return'<a href="'+Rally.nav.Manager.getDetailUrl(record.get("_ref"))+">"+record.get("FormattedID")+" "+record.get("Name")+"</a>"}},{text:"Status",dataIndex:"ScheduleState",flex:1},{text:"Owner",dataIndex:"Owner",flex:1}]})}});
+
+            Rally.launchApp('Rally.apps.completedstoriesanddefectsperiteration.CompletedStoriesAndDefectsPerIterationApp', {
+                name:"Completed Stories and Defects Per Iteration",
+	            parentRepos:""
+            });
+
+        });
+    </script>
+
+
+    <style type="text/css">
+        .app {
+     /* Add app styles here */
+}
+
+    </style>
+</head>
+<body></body>
+</html>
