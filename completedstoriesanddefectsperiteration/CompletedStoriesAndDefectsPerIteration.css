@@ -1,0 +1,35 @@
+.completedstoriesanddefectsperiteration {
+	margin: 5px;
+}
+
+.completedstoriesanddefectsperiteration .gridTitle {
+	font-size: 13px;
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 5px;
+}
+
+.completedstoriesanddefectsperiteration .mainHeader {
+	font-size: 13px;
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.completedstoriesanddefectsperiteration .components {
+	margin: 10px;
+}
+
+.completedstoriesanddefectsperiteration .grid {
+	margin: 5px;
+}
+
+.completedstoriesanddefectsperiteration .header {
+	margin-bottom: 10px;
+}
+
+.completedstoriesanddefectsperiteration .parent {
+    font-weight:bold;
+}
+.completedstoriesanddefectsperiteration .child {
+    margin-left:20px;
+}
+
